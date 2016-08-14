@@ -3,6 +3,8 @@ package org.redis;
 
 import redis.clients.jedis.*;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * Created by break on 2016/8/12.
  */
@@ -39,6 +41,17 @@ public class RedisUtil {
         RedisUtil redisUtil = new RedisUtil();
         redisUtil.jedis.set("hello","e");
         System.out.println(redisUtil.jedis.get("hello"));
+
+        RedisBillLockHandler redisBillLockHandler = new RedisBillLockHandler(redisUtil.jedis);
+        while (true) {
+            System.out.println(redisBillLockHandler.tryLock(0));
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
 }
