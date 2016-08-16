@@ -26,8 +26,8 @@ public class RedisBillLockHandler {
         long nano = System.nanoTime();
         try {
             do {
-                Long i = jedis.setnx(_KEY, _CLIENTCODE);
-                if (i == 1) {
+                String setResult = jedis.set(_KEY, _CLIENTCODE, "nx", "ex", _EXPIRE_TIME);
+                if (setResult != null && "OK".equalsIgnoreCase(setResult)) {
                     jedis.expire(_KEY, _EXPIRE_TIME);
                     System.out.println("get lock, key: " + _KEY + " , expire in " + _EXPIRE_TIME + " seconds,client code :"+_CLIENTCODE+ ".");
                     return Boolean.TRUE;

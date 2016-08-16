@@ -15,7 +15,9 @@ public class RedisUtil {
     private ShardedJedis shardedJedis;//切片额客户端连接
     private ShardedJedisPool shardedJedisPool;//切片连接池
 
-    private final String host = "192.168.0.114";
+//    private final String host = "192.168.0.114";
+    private final String host = "172.31.102.118";
+//    private final int port = 6379;
     private final int port = 6379;
 
 
