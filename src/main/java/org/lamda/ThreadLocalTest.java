@@ -21,9 +21,6 @@ public class ThreadLocalTest {
         map.put("m",testmm1);
         statisticsInfo.set(map);
 
-        Map<String,Object> map2 =  statisticsInfo.get();
-
-        TestMM testMM = (TestMM) map2.get("m");
         testmm1.setId("22");
 
         Map<String,Object> map3 =  statisticsInfo.get();
