@@ -44,9 +44,7 @@ public class GetEmails {
             Flags.Flag[] userFlags = permanentFlags.getSystemFlags();
             for(Flags.Flag flag:userFlags)
                 System.out.println(flag.toString());
-
-
-
+            //获取messages
         } catch (NoSuchProviderException e) {
             e.printStackTrace();
         } catch (MessagingException e) {

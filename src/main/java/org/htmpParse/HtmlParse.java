@@ -11,16 +11,13 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
  * Created by zhangyx on 2016/8/19.
  */
 public class HtmlParse {
-    public static void main(String[] args) {
-        String html = openFile("D:/123.txt");
-        System.out.println(cancelHh(Html2Text(html).trim()));
-    }
     public static void parse(String html){
 
             Parser parser =  Parser.createParser(html, "UTF-8");
@@ -106,5 +103,38 @@ public class HtmlParse {
         m_return = p_return.matcher(text);
        //return  m_return.replaceAll("").replaceAll("\\s*", " ");
        return  m_return.replaceAll("");
+    }
+
+    public static String getHtmlHeader(String html){
+        String regEx ="(?>=(<[\\s]*?body[^>]*?>))([\\s\\S]*?)(?=(<[\\s]*?\\/[\\s]*?body[\\s]*?>))";
+        Pattern pattern = Pattern.compile(regEx);
+        Matcher matcher = pattern.matcher(html);
+        String head = "";
+        while (matcher.find()) {
+            head = matcher.group();
+        }
+        return head;
+    }
+
+    public static void main(String[] args) {
+//        String html = openFile("D:/123.txt");
+//        System.out.println(cancelHh(Html2Text(html).trim()));
+        String html="<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n" +
+                "<html>\n" +
+                "<head>\n" +
+                "  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\n" +
+                "  <meta http-equiv=\"Content-Style-Type\" content=\"text/css\">\n" +
+                "  <title></title>\n" +
+                "  <meta name=\"Generator\" content=\"Cocoa HTML Writer\">\n" +
+                "  <meta name=\"CocoaVersion\" content=\"1504.76\">\n" +
+                "  <style type=\"text/css\">\n" +
+                "    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 14.0px; font: 12.0px Helvetica; color: #000000; -webkit-text-stroke: #000000}\n" +
+                "    span.s1 {font-kerning: none}\n" +
+                "    span.s2 {font: 12.0px 'PingFang SC'; font-kerning: none}\n" +
+                "  </style>\n" +
+                "</head>\n" +
+                "<body class='222'>hhhhwo</body>";
+        String head = getHtmlHeader(html);
+        System.out.println(head);
     }
 }
